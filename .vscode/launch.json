@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug with OpenOCD",
+      "type": "cortex-debug",
+      "request": "launch",
+      "servertype": "openocd",
+      "cwd": "${workspaceRoot}",
+      "executable": "./build/app.elf",
+      "configFiles": [
+        "C:/openocd/openocd/scripts/interface/stlink.cfg",
+        "C:/openocd/openocd/scripts/target/stm32l1.cfg"
+      ],
+      "searchDir": [],
+      "runToEntryPoint": "main",
+      "showDevDebugOutput": "none"
+    }
+  ]
+}
