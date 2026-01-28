@@ -14,7 +14,8 @@
       ],
       "searchDir": [],
       "runToEntryPoint": "main",
-      "showDevDebugOutput": "none"
+      "showDevDebugOutput": "none",
+      "svdFile": "C:/Users/Home/Desktop/Embedded C/STM32/STM32L152.svd"
     }
   ]
 }

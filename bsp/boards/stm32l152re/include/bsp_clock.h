@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#define BSP_HSI_HZ 16000000U
+
 int bsp_clock_init(void);
 
 uint32_t bsp_clock_get_sysclk_hz(void);
