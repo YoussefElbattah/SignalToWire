@@ -3,6 +3,25 @@
 
 #include <stdint.h>
 
+#define GPIO_BASE   0x40020000UL
+#define GPIOA_BASE  GPIO_BASE
+#define GPIOB_BASE  GPIOA_BASE + 400UL
+#define GPIOC_BASE  GPIOB_BASE + 400UL
+#define GPIOD_BASE  GPIOC_BASE + 400UL
+#define GPIOE_BASE  GPIOD_BASE + 400UL
+#define GPIOH_BASE  GPIOE_BASE + 400UL
+#define GPIOF_BASE  GPIOH_BASE + 400UL
+#define GPIOG_BASE  GPIOF_BASE + 400UL
+
+#define RCC_AHBENR_GPIOA_EN    (1 << 0)
+#define RCC_AHBENR_GPIOB_EN    (1 << 1)
+#define RCC_AHBENR_GPIOC_EN    (1 << 2)
+#define RCC_AHBENR_GPIOD_EN    (1 << 3)
+#define RCC_AHBENR_GPIOE_EN    (1 << 4)
+#define RCC_AHBENR_GPIOH_EN    (1 << 5)
+#define RCC_AHBENR_GPIOF_EN    (1 << 6)
+#define RCC_AHBENR_GPIOG_EN    (1 << 7)
+
 /* Identifiants ports BSP */
 typedef enum {
     BSP_GPIO_PORTA,
@@ -10,7 +29,9 @@ typedef enum {
     BSP_GPIO_PORTC,
     BSP_GPIO_PORTD,
     BSP_GPIO_PORTE,
-    BSP_GPIO_PORTH
+    BSP_GPIO_PORTH,
+    BSP_GPIO_PORTF,
+    BSP_GPIO_PORTG
 } bsp_gpio_port_t;
 
 /* Identifiants pins BSP */
@@ -68,9 +89,9 @@ typedef struct {
 /* API BSP GPIO */
 int  bsp_gpio_init(void);
 int  bsp_gpio_config(const bsp_gpio_cfg_t *cfg);
-void bsp_gpio_set(bsp_gpio_port_t port, bsp_gpio_pin_t pin);
-void bsp_gpio_clear(bsp_gpio_port_t port, bsp_gpio_pin_t pin);
-void bsp_gpio_toggle(bsp_gpio_port_t port, bsp_gpio_pin_t pin);
+int bsp_gpio_set(bsp_gpio_port_t port, bsp_gpio_pin_t pin);
+int bsp_gpio_clear(bsp_gpio_port_t port, bsp_gpio_pin_t pin);
+int bsp_gpio_toggle(bsp_gpio_port_t port, bsp_gpio_pin_t pin);
 
 #endif
 /* BSP_GPIO_H */

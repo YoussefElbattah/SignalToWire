@@ -2,8 +2,6 @@
 
 #include <stdint.h>
 
-#define RCC_BASE 0x40023800UL
-
 typedef struct {
     volatile uint32_t CR;
     volatile uint32_t ICSCR;
@@ -18,7 +16,7 @@ typedef struct {
     volatile uint32_t CSR;
 } rcc_reg_t;
 
-static rcc_reg_t * const RCC = (rcc_reg_t *)RCC_BASE;
+rcc_reg_t * const RCC = (rcc_reg_t *)RCC_BASE;
 
 int bsp_clock_init(void){
     RCC->CR |= (1 << 0); // Enable HSI
@@ -76,4 +74,16 @@ uint32_t bsp_clock_get_apb2_hz(void){
     };
 
     return ahbfreq / apb2_prescaler_table[ppre2];
+}
+
+void bsp_clock_enable_ahb(uint32_t mask){
+    RCC->AHBENR |= mask;
+}
+
+void bsp_clock_enable_apb1(uint32_t mask){
+    RCC->APB1ENR |= mask;
+}
+
+void bsp_clock_enable_apb2(uint32_t mask){
+    RCC->APB2ENR |= mask;
 }
