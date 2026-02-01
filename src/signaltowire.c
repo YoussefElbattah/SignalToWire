@@ -18,6 +18,8 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include "bsp_clock.h"
+#include "bsp_timer.h"
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -33,9 +35,11 @@ volatile uint32_t counter = 0;
 
 int main(void)
 {
+  bsp_clock_init();
+  bsp_timer_init();
     /* Loop forever */
 	while(1){
     counter++;
-    for (volatile int i = 0; i < 100000; i++);
+    bsp_timer_delay_ms(1000);
   }
 }

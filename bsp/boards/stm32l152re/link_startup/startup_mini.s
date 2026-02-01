@@ -35,7 +35,7 @@ g_pfnVectors:
     .word Default_Handler
     .word Default_Handler
     .word Default_Handler
-    .word Default_Handler
+    .word SysTick_Handler
 
 /* ================= RESET HANDLER ================= */
 .section .text.Reset_Handler
