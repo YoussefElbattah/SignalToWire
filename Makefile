@@ -5,6 +5,7 @@ BUILD := build
 TARGET := $(BUILD)/app.elf
 
 BSP_INC := $(BSP)/boards/$(BOARD)/include
+DRV_INC := drivers/include
 
 BIN := $(BUILD)/app.bin
 HEX := $(BUILD)/app.hex
@@ -17,7 +18,7 @@ RM_RF   := rm -rf
 
 COMMON_SRCS := \
   $(wildcard src/*.c) \
-  $(wildcard drivers/*.c)
+  $(wildcard drivers/src/*.c)
 
 ifeq ($(BOARD),stm32l152re)
   CPU := cortex-m3
@@ -51,7 +52,7 @@ SRCS := $(COMMON_SRCS) $(BSP_SRCS)
 OBJS := $(SRCS:%=$(BUILD)/%.o)
 
 CFLAGS 	:= -Wall -O0 -g -ffreestanding
-CFLAGS 	+= -I$(BSP_INC) -Ibsp
+CFLAGS 	+= -I$(BSP_INC) -Ibsp -I$(DRV_INC)
 CFLAGS  += -mcpu=$(CPU) -mthumb $(DEFS)
 LDFLAGS := -T$(LINKER) -Wl,--gc-sections
 
