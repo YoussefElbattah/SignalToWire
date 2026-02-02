@@ -1,38 +1,45 @@
 #include "led.h"
-static bsp_gpio_cfg_t *cfg_led1, *cfg_led2, *cfg_led3;
+
 int led_init(void){
     /* Initialize LED1 */
-    cfg_led1->pin = LED1_PIN;
-    cfg_led1->port = LED1_PORT;
-    cfg_led1->speed = BSP_GPIO_SPEED_MEDIUM;
-    cfg_led1->pull = BSP_GPIO_PULLUP;
-    cfg_led1->af = BSP_GPIO_MODE_OUTPUT; 
+    bsp_gpio_cfg_t cfg_led1 = {
+        .pin = LED1_PIN,
+        .port = LED1_PORT,
+        .mode = BSP_GPIO_MODE_OUTPUT,
+        .speed = BSP_GPIO_SPEED_MEDIUM,
+        .pull = BSP_GPIO_PULLUP,
+        .af = BSP_GPIO_MODE_OUTPUT,
+    };
 
     /* Initialize LED2 */
-    cfg_led2->pin = LED2_PIN;
-    cfg_led2->port = LED2_PORT;
-    cfg_led2->speed = BSP_GPIO_SPEED_MEDIUM;
-    cfg_led2->pull = BSP_GPIO_PULLUP;
-    cfg_led2->af = BSP_GPIO_MODE_OUTPUT; 
-    
+    bsp_gpio_cfg_t cfg_led2 = {
+        .pin = LED2_PIN,
+        .port = LED2_PORT,
+        .mode = BSP_GPIO_MODE_OUTPUT,
+        .speed = BSP_GPIO_SPEED_MEDIUM,
+        .pull = BSP_GPIO_PULLUP,
+        .af = BSP_GPIO_MODE_OUTPUT,
+    };
     /* Initialize LED3 */
-    cfg_led3->pin = LED3_PIN;
-    cfg_led3->port = LED3_PORT;
-    cfg_led3->speed = BSP_GPIO_SPEED_MEDIUM;
-    cfg_led3->pull = BSP_GPIO_PULLUP;
-    cfg_led3->af = BSP_GPIO_MODE_OUTPUT; 
-
-    int ret = bsp_gpio_config(cfg_led1);
+    bsp_gpio_cfg_t cfg_led3 = {
+        .pin = LED3_PIN,
+        .port = LED3_PORT,
+        .mode = BSP_GPIO_MODE_OUTPUT,
+        .speed = BSP_GPIO_SPEED_MEDIUM,
+        .pull = BSP_GPIO_PULLUP,
+        .af = BSP_GPIO_MODE_OUTPUT,
+    }; 
+    int ret = bsp_gpio_config(&cfg_led1);
     if(ret != 0){
         return ret;
     }
 
-    ret = bsp_gpio_config(cfg_led2);
+    ret = bsp_gpio_config(&cfg_led2);
     if(ret != 0){
         return ret;
     }
 
-    ret = bsp_gpio_config(cfg_led3);
+    ret = bsp_gpio_config(&cfg_led3);
     if(ret != 0){
         return ret;
     }

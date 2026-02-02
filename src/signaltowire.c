@@ -19,6 +19,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "led.h"
+#include "bsp_clock.h"
 #include "bsp_timer.h"
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
@@ -35,17 +36,20 @@ volatile uint32_t counter = 0;
 
 int main(void)
 {
-    /* Initialize the LED driver */
-    if (led_init() != 0) {
-        return -1; // Initialization failed
-    }
-    /* Turn on LED1 to indicate startup */
-    led_on(LED_USER1);
-    bsp_timer_delay_ms(500);
-    led_off(LED_USER1);
-    /* Loop forever */
+  /* Initialize the BSP Clock and Timer */
+  bsp_clock_init();
+  bsp_timer_init();
+
+  /* Initialize the LED driver */
+  if (led_init() != 0) {
+      return -1; // Initialization failed
+  }
+  /* Turn on LED1 to indicate startup */
+  led_on(LED_USER1);
+  bsp_timer_delay_ms(500);
+  led_off(LED_USER1);
+  /* Loop forever */
 	while(1){
-    counter++;
     led_toggle(LED_USER1);
     bsp_timer_delay_ms(1000);
   }
