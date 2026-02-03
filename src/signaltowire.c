@@ -19,8 +19,10 @@
 #include <stdint.h>
 #include <stdio.h>
 #include "led.h"
+#include "printk.h"
 #include "bsp_clock.h"
 #include "bsp_timer.h"
+#include <string.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
@@ -33,12 +35,14 @@
 #endif
 
 volatile uint32_t counter = 0;
+char *msg = "SignalToWire: UART Initialized\r\n";
 
 int main(void)
 {
   /* Initialize the BSP Clock and Timer */
   bsp_clock_init();
   bsp_timer_init();
+  printk_init();
 
   /* Initialize the LED driver */
   if (led_init() != 0) {
@@ -48,9 +52,13 @@ int main(void)
   led_on(LED_USER1);
   bsp_timer_delay_ms(500);
   led_off(LED_USER1);
+
+  /* Send initialization message over UART */
+  printk("%s", msg);
   /* Loop forever */
 	while(1){
     led_toggle(LED_USER1);
+    printk("Hi counter: %lu\r\n", counter++);
     bsp_timer_delay_ms(1000);
   }
 }
